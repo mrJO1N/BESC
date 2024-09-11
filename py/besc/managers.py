@@ -45,7 +45,6 @@ class StdIOManager(MemBankManager):
     @cell.setter
     def cell(self, value: int):
         self.memory[self.pointer+self.io_separatorIndex] = value
-        print("kkkkkkk", self.pointer+self.io_separator)
 
     def end(self):
         mem = self.memory[self.io_separatorIndex:][::-1]
