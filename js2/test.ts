@@ -1,19 +1,18 @@
-import { besci as runner } from "./besc/main";
+import { besci as runner, bfCompiler as compiler } from "./besc/main";
 
-const bfProgramms: { [key: string]: string } = {
-  echo: ",[.,]",
-  cat_buffer: ",[>,]<[<]>[.>]",
-  fib: ">++++++++++>+>+[[+++++[>++++++++<-]>.<++++++[>--------<-]+<<<]>.>>[[-]<[>+<-]>>[<<+>+>-]<[>+<-[>+<-[>+<-[>+<-[>+<-[>+<-[>+<-[>+<-[>+<-[>[-]>+>+<<<-[>+<-]]]]]]]]]]]+>>>]<<<]",
-};
+import bescExamples from "./besc-examples";
+import bfExamples from "./bf-examples";
 
-const besciProgramms: { [key: string]: string } = {
-  addictTest: "!100+^!33+`.",
-  chainsTest: "(",
-  memTest: "",
-};
+const programms = { ...bescExamples, ...bfExamples };
 
-runner.maxIterationsCount = 10_000;
+runner.maxIterationsCount = 10_000_000;
 runner.input = "hello";
-runner.programm = besciProgramms.addictTest;
+// runner.programm = programms.echo;
+runner.programm = ",[.,]";
 runner.run();
 console.log(runner.output);
+
+// const compiled = compiler.compile(programms.echo, "hello");
+
+// console.log(String(compiled));
+// console.log(compiled());

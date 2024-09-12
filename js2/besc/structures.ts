@@ -1,6 +1,4 @@
-export interface IDynamicEnum {}
-
-export class DynamicEnum implements IDynamicEnum {
+export class DynamicEnum {
   mem: { [key: number]: number };
   lastId = 0;
   DynEnumError = class EnumError extends Error {
@@ -13,10 +11,6 @@ export class DynamicEnum implements IDynamicEnum {
   constructor(obj?: typeof this.mem) {
     this.mem = {};
     if (obj) this.mem = obj;
-  }
-
-  private getNewId() {
-    return this.lastId++;
   }
 
   add({ key, val }: { key: number; val: number }) {
