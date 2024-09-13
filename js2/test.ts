@@ -5,9 +5,13 @@ import bfExamples from "./bf-examples";
 
 const programms = { ...bescExamples, ...bfExamples };
 
-runner.maxIterationsCount = 10_000_000;
+for (const programmName in programms) {
+  programms[programmName] = String(programms[programmName]).replace(/\s/g, "");
+}
+
+runner.maxIterationsCount = 100_000;
 runner.input = "hello";
-// runner.programm = programms.echo;
+// runner.programm = programms.memTest;
 runner.programm = ",[.,]";
 runner.run();
 console.log(runner.output);

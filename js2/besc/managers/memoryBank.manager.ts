@@ -1,20 +1,28 @@
 export abstract class MemoryManager {
   pointerPosition = 0;
-  protected memory: number[] = new Proxy(Array(30_000).fill(0), {
-    set(target: number[], prop: string | symbol, newValue: number) {
-      target[prop] = newValue;
-      return true;
-    },
-  });
+  protected memory = Array(30_000).fill(0);
+
+  getCellWithPos(pos: number) {
+    return this.onMemReaded(pos) ?? this.memory[pos];
+  }
 
   get cell(): number {
-    return this.memory[this.pointerPosition];
+    return (
+      this.onMemReaded(this.pointerPosition) ??
+      this.memory[this.pointerPosition]
+    );
   }
 
   set cell(val: number) {
-    this.memory[this.pointerPosition] = val;
+    const onMemChangedResult = this.onMemChanged(val, this.pointerPosition);
+
+    if (!onMemChangedResult) {
+      this.memory[this.pointerPosition] = val;
+    }
   }
 
   abstract onEnd(): void;
-  abstract onMemChanged(): void;
+  abstract onMemChanged(val?: number, pos?: number): void | number;
+
+  abstract onMemReaded(pos?: number): void | number;
 }
