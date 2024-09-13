@@ -1,6 +1,6 @@
 export abstract class MemoryManager {
   pointerPosition = 0;
-  protected memory = Array(30_000).fill(0);
+  protected memory: number[] = Array(30_000).fill(0);
 
   getCellWithPos(pos: number) {
     return this.onMemReaded(pos) ?? this.memory[pos];

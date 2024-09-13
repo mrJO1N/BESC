@@ -6,53 +6,21 @@ Brainfuck has capabilities only for console applications like a calculator, and 
 
 like a Swiss knife - bad opener, bad scissors, bad pliers, but always useful
 
-## special chars:
+example calculator:
+task: 50+10
 
 ```
-+-<>,.[] ! `^ ()_ ${}
-^        ^  ^  ^   ^
-1        2  3  4   5
-1. clasical Brainfuck
-2. turbo mode
-3. addict commands
+$         switch manager to next
+}}        manager pointer + 2
+!50+      runner cell + 50 used turbo
+.         write from runner cell to manager cell
+[-]       cicle to runner cell = 0
+}
+!10+. [-]
+!2{       manager pointer - 2 used turbo
++. [-]
+{
++.
+,         write from manager cell to runner cell
+$.
 ```
-
-### turbo mode
-
-brainfuck:
-
-```
-++++++++++
-```
-
-besc:
-
-```
-!10+
-```
-
-this option can be used in bf
-
-### addict commands
-
-this char return pointer index to console:
-
-```
-`
-```
-
----
-
-moving the pointer to the cell value:
-
-```
-!100+^
-```
-
-is equal to
-
-```
-!100<
-```
-
-this char can adds dynamically

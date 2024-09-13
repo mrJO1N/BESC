@@ -11,8 +11,8 @@ for (const programmName in programms) {
 
 runner.maxIterationsCount = 100_000;
 runner.input = "hello";
-// runner.programm = programms.memTest;
-runner.programm = ",[.,]";
+runner.programm = programms.memTest;
+// runner.programm = ",[.,]";
 runner.run();
 console.log(runner.output);
 
