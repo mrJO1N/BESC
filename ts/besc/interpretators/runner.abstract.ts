@@ -1,6 +1,6 @@
-import { DynamicEnum } from "./structures";
-import { IRunnerCommands } from "./types";
-import { getBreacketsMap } from "./utils";
+import { DynamicEnum } from "../utils/structures";
+import { IRunnerCommands } from "../utils/types";
+import { getBreacketsMap } from "../utils/general.utils";
 
 export abstract class Runner {
   programm: string;

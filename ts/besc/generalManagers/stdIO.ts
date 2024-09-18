@@ -1,4 +1,4 @@
-import { MemoryManager } from "../memoryBank.manager";
+import { MemoryManager } from "./memory.manager";
 
 export class StdIOManager extends MemoryManager {
   private _output = "";

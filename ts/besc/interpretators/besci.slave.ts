@@ -1,7 +1,7 @@
 import { Runner } from "./runner.abstract";
-import { DynamicEnum } from "./structures";
-import { MemoryManager } from "./managers/memoryBank.manager";
-import { StdIOManager } from "./managers/stdIO/manager";
+import { DynamicEnum } from "../utils/structures";
+import { MemoryManager } from "../generalManagers/memory.manager";
+import { StdIOManager } from "../generalManagers/stdIO";
 
 export class BESCISlave extends Runner {
   private selectedMemBank: MemoryManager;

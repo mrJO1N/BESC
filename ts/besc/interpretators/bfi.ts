@@ -1,5 +1,5 @@
 import { Runner } from "./runner.abstract";
-import { DynamicEnum } from "./structures";
+import { DynamicEnum } from "../utils/structures";
 
 export class BFI extends Runner {
   programm = "";

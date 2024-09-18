@@ -1,8 +1,8 @@
 import { Runner } from "./runner.abstract";
-import { DynamicEnum } from "./structures";
-import { StdIOManager } from "./managers/stdIO/manager";
-import { MemoryManager } from "./managers/memoryBank.manager";
-import { BESCISlave } from "./slave-besci";
+import { DynamicEnum } from "../utils/structures";
+import { StdIOManager } from "../generalManagers/stdIO";
+import { MemoryManager } from "../generalManagers/memory.manager";
+import { BESCISlave } from "./besci.slave";
 
 export class BESCI extends Runner {
   private selectedMemBank: MemoryManager;
@@ -161,7 +161,10 @@ export class BESCI extends Runner {
   }
 }
 
-interface IManagers {
+interface IManagers extends IGeneralManagers {
   stdIO: StdIOManager;
+}
+
+export interface IGeneralManagers {
   [key: string]: MemoryManager;
 }

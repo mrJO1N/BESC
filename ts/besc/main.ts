@@ -1,9 +1,11 @@
-import { DynamicEnum } from "./structures";
-import { BFI } from "./bfi";
-import { BESCI } from "./besci";
-import { BFtoJSCompiler } from "./trans-compiler";
-import managers from "./managers/main.manager";
+import { DynamicEnum } from "./utils/structures";
+import { BFI } from "./interpretators/bfi";
+import { BESCI } from "./interpretators/besci.master";
+import { StdIOManager } from "./generalManagers/stdIO";
+import { MemoryManager } from "./generalManagers/memory.manager";
+import { IGeneralManagers } from "./interpretators/besci.master";
 
-export const bfi = new BFI(new DynamicEnum());
-export const besci = new BESCI(new DynamicEnum(), managers);
-export const bfCompiler = new BFtoJSCompiler();
+export const getBfi = () => new BFI(new DynamicEnum());
+export const getBesci = (managers: IGeneralManagers = {}) =>
+  new BESCI(new DynamicEnum(), { ...managers, stdIO: new StdIOManager() });
+export { MemoryManager };
