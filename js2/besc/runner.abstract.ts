@@ -1,11 +1,9 @@
 import { DynamicEnum } from "./structures";
 import { IRunnerCommands } from "./types";
-import { getMatchIndexes } from "./utils";
+import { getBreacketsMap } from "./utils";
 
 export abstract class Runner {
   programm: string;
-
-  protected abstract onRunnerEnd(): void;
 
   protected memory: number[];
   protected breacketsMap: DynamicEnum;
@@ -73,23 +71,6 @@ export abstract class Runner {
     };
   }
 
-  private getreacketsMap(programm: string): DynamicEnum {
-    const map = new DynamicEnum();
-    const startMatches = getMatchIndexes(programm, /\[/g),
-      endMatches = getMatchIndexes(programm, /\]/g);
-
-    if (!startMatches || !endMatches) {
-      console.log("'[' or ']' is not exist");
-    }
-    if (startMatches.length != endMatches.length) {
-      console.log("quantity of '[' and ']' is different");
-    }
-    for (let i = 0; i < startMatches.length; i++) {
-      map.add({ key: startMatches[i], val: endMatches[i] });
-    }
-    return map;
-  }
-
   protected readonly setNotTurbo = () => {
     this.afterTurboCommands = "";
     this.isTurbo = false;
@@ -102,7 +83,7 @@ export abstract class Runner {
     let lastInputCharPointer = 0;
     let maxIterationsCount = this.maxIterationsCount ?? 10_000;
 
-    this.breacketsMap = this.getreacketsMap(this.programm);
+    this.breacketsMap = getBreacketsMap(this.programm, /\[/g, /\]/g);
     while (commandIndex < this.programm.length) {
       if (this.iterationsCount > maxIterationsCount) break;
 
@@ -115,9 +96,15 @@ export abstract class Runner {
           command
         ](commandIndex, pointer, lastInputCharPointer));
 
+      // console.log(
+      //   this.programm[commandIndex],
+      //   this.constructor.name,
+      //   commandIndex
+      // );
       commandIndex++;
       this.iterationsCount++;
     }
     this.onRunnerEnd();
   }
+  protected abstract onRunnerEnd(): void;
 }

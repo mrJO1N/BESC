@@ -26,4 +26,5 @@ export class ArithmeticManager extends MemoryManager {
     }
   }
   onEnd(): void {}
+  onCellEqualOne() {}
 }

@@ -32,4 +32,5 @@ export class StdIOManager extends MemoryManager {
   addDevOutput(val: string) {
     this._output += val;
   }
+  onCellEqualOne() {}
 }

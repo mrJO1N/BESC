@@ -1,15 +1,12 @@
 import { Runner } from "./runner.abstract";
 import { DynamicEnum } from "./structures";
-import { StdIOManager } from "./managers/stdIO/manager";
 import { MemoryManager } from "./managers/memoryBank.manager";
-import { BESCISlave } from "./slave-besci";
+import { StdIOManager } from "./managers/stdIO/manager";
 
-export class BESCI extends Runner {
+export class BESCISlave extends Runner {
   private selectedMemBank: MemoryManager;
   private managers: IManagers;
   private selectedManagerNameIndex: number;
-
-  private chains: { [key: number]: () => Promise<void> } = {};
 
   constructor(dynamicEnum: DynamicEnum, managers: IManagers) {
     super(dynamicEnum);
@@ -95,70 +92,15 @@ export class BESCI extends Runner {
     // add chains management
     this.commandRunners = {
       ...this.commandRunners,
-      "(": (commandIndex, pointer, lastInputCharPointer) => {
-        const startMatchIndex = this.programm
-            .slice(commandIndex)
-            .match(/\(/)?.index,
-          endMatchIndex = this.programm.slice(commandIndex).match(/\)/)?.index;
 
-        if (startMatchIndex === undefined || endMatchIndex === undefined) {
-          throw new Error("Invalid chain syntax");
-        }
-
-        commandIndex = endMatchIndex;
-
-        let addictManagerIndex = this.selectedManagerNameIndex;
-
-        if (addictManagerIndex <= 1) addictManagerIndex = 2;
-        if (addictManagerIndex > Object.keys(this.managers).length - 1)
-          throw new Error("missing addict manager");
-
-        const runner = new BESCISlave(dynamicEnum, {
-          stdIO: this.managers.stdIO,
-          arithmetic: this.managers.arithmetic,
-          addictManager:
-            this.managers[Object.keys(this.managers)[addictManagerIndex]],
-        });
-        runner.programm = this.programm.slice(
-          startMatchIndex + 1,
-          endMatchIndex
-        );
-
-        this.chains[this.memory[pointer]] = async () => runner.run();
-
-        const { graphical, ...managers } = this.managers;
-        this.managers = managers;
-
-        return { commandIndex, pointer, lastInputCharPointer };
-      },
-
-      ")": (commandIndex, pointer, lastInputCharPointer) => {
-        return { commandIndex, pointer, lastInputCharPointer };
-      },
-
-      _: (commandIndex, pointer, lastInputCharPointer) => {
-        let chain = this.chains[this.memory[pointer]];
-        chain();
-
+      "|": (commandIndex, pointer, lastInputCharPointer) => {
+        console.log("foo");
         return { commandIndex, pointer, lastInputCharPointer };
       },
     };
   }
 
-  set input(val: string) {
-    this.managers.stdIO.input = val;
-  }
-
-  get output() {
-    return this.managers.stdIO.output;
-  }
-
-  protected onRunnerEnd(): void {
-    for (const key in this.managers) {
-      // console.log("ended this", key);
-      this.managers[key].onEnd();
-    }
-  }
+  protected onRunnerEnd(): void {}
 }
 
 interface IManagers {

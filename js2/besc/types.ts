@@ -10,4 +10,5 @@ export type IRunnerStepFunc = (
   commandIndex: number;
   pointer: number;
   lastInputCharPointer: number;
+  isStoped?: boolean;
 };

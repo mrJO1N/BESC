@@ -11,8 +11,9 @@ for (const programmName in programms) {
 
 runner.maxIterationsCount = 100_000;
 runner.input = "hello";
-runner.programm = programms.memTest;
-// runner.programm = ",[.,]";
+// runner.programm = programms.t;
+runner.programm = "(!3>|!35+.)_,[.,]!3>+";
+// runner.programm = "(!35>!35+.)_!36+.";
 runner.run();
 console.log(runner.output);
 

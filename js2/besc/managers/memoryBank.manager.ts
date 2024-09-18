@@ -19,7 +19,11 @@ export abstract class MemoryManager {
     if (!onMemChangedResult) {
       this.memory[this.pointerPosition] = val;
     }
+
+    if (onMemChangedResult === 1) this.onCellEqualOne();
   }
+
+  abstract onCellEqualOne(): void;
 
   abstract onEnd(): void;
   abstract onMemChanged(val?: number, pos?: number): void | number;
