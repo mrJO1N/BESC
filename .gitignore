@@ -1,4 +1,3 @@
 .vscode
 /ts_
 **/test.ts
-**/test.dev.ts

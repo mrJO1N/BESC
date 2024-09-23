@@ -6,6 +6,7 @@ import { MemoryManager } from "./generalManagers/memory.manager";
 import { IGeneralManagers } from "./interpretators/besci.master";
 import { BFValidator } from "./validators/bf.valid";
 import { MasterBESCValidator } from "./validators/besc.master.valid";
+import { BFToJSCompiler } from "./compilers/bf2js";
 
 export const getBfi = () => new BFI(new DynamicEnum(), new BFValidator());
 export const getBesci = (managers: IGeneralManagers = {}) =>
@@ -13,4 +14,6 @@ export const getBesci = (managers: IGeneralManagers = {}) =>
     ...managers,
     stdIO: new StdIOManager(),
   });
+
+export const getBfCompiler = () => new BFToJSCompiler(new BFValidator());
 export { MemoryManager };
