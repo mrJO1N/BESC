@@ -1,5 +1,5 @@
 import { DynamicEnum } from "./structures";
-function getMatchIndexes(str: string, regexp: RegExp): number[] {
+export function getMatchIndexes(str: string, regexp: RegExp): number[] {
   const matches = [...String(str).matchAll(regexp)];
   let matchesIndexes: number[] = [];
 

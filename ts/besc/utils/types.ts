@@ -12,3 +12,7 @@ export type IRunnerStepFunc = (
   lastInputCharPointer: number;
   isStoped?: boolean;
 };
+
+export type TOneTypeObject<T extends string | number> = {
+  [key in T]: T;
+};

@@ -2,14 +2,19 @@ import { Runner } from "./runner.abstract";
 import { DynamicEnum } from "../utils/structures";
 import { MemoryManager } from "../generalManagers/memory.manager";
 import { StdIOManager } from "../generalManagers/stdIO";
+import { Validator } from "../validators/abstract.valid";
 
 export class BESCISlave extends Runner {
   private selectedMemBank: MemoryManager;
   private managers: IManagers;
   private selectedManagerNameIndex: number;
 
-  constructor(dynamicEnum: DynamicEnum, managers: IManagers) {
-    super(dynamicEnum);
+  constructor(
+    dynamicEnum: DynamicEnum,
+    validator: Validator,
+    managers: IManagers
+  ) {
+    super(dynamicEnum, validator);
     this.managers = managers;
     this.selectedManagerNameIndex = 1;
     this.selectedMemBank = managers.stdIO;

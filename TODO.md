@@ -1,5 +1,6 @@
 #### general:
 
+- fix. in besci master create slave besci ( coomand "(" ). make ioc, or di
 - add realizations of "|" command
 
 #### in ./js2/besci.ts

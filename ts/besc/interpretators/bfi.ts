@@ -1,5 +1,6 @@
 import { Runner } from "./runner.abstract";
 import { DynamicEnum } from "../utils/structures";
+import { Validator } from "../validators/abstract.valid";
 
 export class BFI extends Runner {
   programm = "";
@@ -14,8 +15,8 @@ export class BFI extends Runner {
     return this.outputStr;
   }
 
-  constructor(dynamicEnum: DynamicEnum) {
-    super(dynamicEnum);
+  constructor(dynamicEnum: DynamicEnum, validator: Validator) {
+    super(dynamicEnum, validator);
 
     this.commandRunners = {
       ...this.commandRunners,

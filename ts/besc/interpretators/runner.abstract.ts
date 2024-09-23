@@ -1,10 +1,12 @@
 import { DynamicEnum } from "../utils/structures";
 import { IRunnerCommands } from "../utils/types";
 import { getBreacketsMap } from "../utils/general.utils";
+import { Validator } from "../validators/abstract.valid";
 
 export abstract class Runner {
   programm: string;
 
+  protected validator: Validator;
   protected memory: number[];
   protected breacketsMap: DynamicEnum;
   maxIterationsCount: number;
@@ -13,8 +15,10 @@ export abstract class Runner {
   protected afterTurboCommands = "";
   protected commandRunners: IRunnerCommands = {};
 
-  constructor(dynamicEnum: DynamicEnum) {
+  constructor(dynamicEnum: DynamicEnum, validator: Validator) {
     this.breacketsMap = dynamicEnum;
+
+    this.validator = validator;
 
     this.commandRunners = {
       ...this.commandRunners,
@@ -77,6 +81,7 @@ export abstract class Runner {
   };
 
   run(): void {
+    this.programm = this.validator.validate(this.programm);
     this.memory = Array(30_000).fill(0);
     let commandIndex = 0;
     let pointer = 0;

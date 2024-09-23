@@ -3,6 +3,8 @@ import { DynamicEnum } from "../utils/structures";
 import { StdIOManager } from "../generalManagers/stdIO";
 import { MemoryManager } from "../generalManagers/memory.manager";
 import { BESCISlave } from "./besci.slave";
+import { Validator } from "../validators/abstract.valid";
+import { SlaveBESCValidator } from "../validators/besc.slave.valid";
 
 export class BESCI extends Runner {
   private selectedMemBank: MemoryManager;
@@ -11,8 +13,12 @@ export class BESCI extends Runner {
 
   private chains: { [key: number]: () => Promise<void> } = {};
 
-  constructor(dynamicEnum: DynamicEnum, managers: IManagers) {
-    super(dynamicEnum);
+  constructor(
+    dynamicEnum: DynamicEnum,
+    validator: Validator,
+    managers: IManagers
+  ) {
+    super(dynamicEnum, validator);
     this.managers = managers;
     this.selectedManagerNameIndex = 1;
     this.selectedMemBank = managers.stdIO;
@@ -46,6 +52,7 @@ export class BESCI extends Runner {
         let nameIndex = this.selectedManagerNameIndex++;
         if (nameIndex >= Object.keys(this.managers).length - 1) {
           this.selectedManagerNameIndex = 0;
+          nameIndex = 0;
         }
 
         const selectedManagerName = Object.keys(this.managers)[nameIndex];
@@ -113,7 +120,7 @@ export class BESCI extends Runner {
         if (addictManagerIndex > Object.keys(this.managers).length - 1)
           throw new Error("missing addict manager");
 
-        const runner = new BESCISlave(dynamicEnum, {
+        const runner = new BESCISlave(dynamicEnum, new SlaveBESCValidator(), {
           stdIO: this.managers.stdIO,
           arithmetic: this.managers.arithmetic,
           addictManager:
